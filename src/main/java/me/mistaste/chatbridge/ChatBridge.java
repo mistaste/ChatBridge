@@ -2,10 +2,14 @@ package me.mistaste.chatbridge;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.mistaste.chatbridge.commands.Command;
+import me.mistaste.chatbridge.commands.CommandCompleter;
 import me.mistaste.chatbridge.events.EventBus;
 import me.mistaste.chatbridge.events.WSMessage;
 import me.mistaste.chatbridge.websocket.WSClient;
 import me.mistaste.chatbridge.websocket.WSServer;
+import me.mistaste.mstapi.commands.BaseCommand;
+import me.mistaste.mstapi.commands.BaseCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -22,6 +26,11 @@ public final class ChatBridge extends JavaPlugin {
         instance = this;
         configm = new ConfigManager(this);
         eventBus = new EventBus();
+
+        Command command = new Command();
+        CommandCompleter commandCompleter = new CommandCompleter();
+        BaseCompleter.register(this, command, commandCompleter);
+        BaseCommand.register(this, command);
 
         if (configm.isServerMode()) {
             startServer();
