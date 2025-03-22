@@ -38,7 +38,7 @@ public final class ChatBridge extends JavaPlugin {
             startClient();
         }
 
-        new ChatListener(this).register();
+        getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         getLogger().info("Plugin enabled in " + (configm.isServerMode() ? "SERVER" : "CLIENT") + " mode");
     }
 
@@ -99,10 +99,10 @@ public final class ChatBridge extends JavaPlugin {
         String json = wsMessage.toJson();
 
         if (configm.isServerMode() && wsServer != null) {
-            getLogger().info("Broadcasting message to all clients: " + json);
+            //getLogger().info("Broadcasting message to all clients: " + json);
             wsServer.broadcast(json);
         } else if (wsClient != null && wsClient.isOpen()) {
-            getLogger().info("Sending message to server: " + json);
+            //getLogger().info("Sending message to server: " + json);
             wsClient.send(json);
         } else {
             getLogger().warning("No active WebSocket connection to broadcast message.");

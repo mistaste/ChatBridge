@@ -47,7 +47,9 @@ public class ChatListener implements Listener {
                 if (plugin.isServerPrefixEnabled()) {
                     formattedMessage = "[" + chatMessage.getServerName() + "] " + formattedMessage;
                 }
-                plugin.getServer().broadcastMessage(formattedMessage);
+                if (!chatMessage.getServerName().equals(plugin.getConfigManager().getServerName())) {
+                    plugin.getServer().broadcastMessage(formattedMessage);
+                }
             });
         }
     }
