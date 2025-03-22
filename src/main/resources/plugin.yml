@@ -1,0 +1,4 @@
+name: ChatBridge
+version: '${version}'
+main: ua.mistaste.chatbridge.ChatBridge
+api-version: '1.16'
