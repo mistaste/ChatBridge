@@ -1,4 +1,4 @@
 name: ChatBridge
 version: '${version}'
-main: ua.mistaste.chatbridge.ChatBridge
+main: me.mistaste.chatbridge.ChatBridge
 api-version: '1.16'

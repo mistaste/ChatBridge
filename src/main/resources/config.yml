@@ -1,0 +1,17 @@
+# Operating mode: true = server, false = client
+isServer: false
+
+# Settings for server mode
+port: 8888
+
+# Settings for client mode
+serverAddress: "ws://127.0.0.1:8888"
+
+# General settings
+serverName: "Lobby Server"
+
+# Enable/disable server prefix
+serverPrefixEnabled: false
+
+# Message format
+format: "<%player%> %message%"

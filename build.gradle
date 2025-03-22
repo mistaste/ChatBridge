@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2' // Apply the Shadow plugin
 }
 
-group = 'ua.mistaste'
+group = 'me.mistaste'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -15,10 +16,26 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "local-repo"
+        url = uri('/home/oleh/.m2/repository')
+    }
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }
+    maven {
+        url 'https://repo.dmulloy2.net/repository/public/'
+    }
 }
 
 dependencies {
-compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
+    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
+    implementation "me.mistaste:mstAPI:1.0.1"
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 def targetJavaVersion = 8
@@ -47,3 +64,12 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+    relocate 'me.mistaste.mstAPI', 'me.mistaste.shaded.mstAPI'
+    relocate 'org.java_websocket', 'me.mistaste.shaded.websocket'
+    relocate 'com.google.gson', 'me.mistaste.shaded.gson'
+    archiveClassifier.set('')
+}
+
+tasks.build.dependsOn shadowJar
